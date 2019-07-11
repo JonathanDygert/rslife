@@ -1,5 +1,7 @@
-use rslife::{gui, Args, Result};
+use structopt::StructOpt;
+
+use rslife::{gui, Opt, Result};
 
 fn main() -> Result<()> {
-    gui::main(&Args::parse())
+    gui::main(&Opt::from_args())
 }

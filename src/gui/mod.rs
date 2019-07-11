@@ -1,7 +1,9 @@
 //! This module forms the GUI for the simulation.
 
-use crate::Args;
-use crate::Game;
+use crate::{
+    opt::{Command, Opt},
+    Game,
+};
 
 use drag_controller::DragController;
 use glutin_window::GlutinWindow as Window;
@@ -17,7 +19,7 @@ pub use self::app::App;
 pub use self::theme::Theme;
 
 /// The main function to run the GUI.
-pub fn main(args: &Args) -> crate::Result<()> {
+pub fn main(opt: &Opt) -> crate::Result<()> {
     // Create an Glutin window.
     let mut window: Window = WindowSettings::new("Conway's Game of Life", [800, 600])
         .exit_on_esc(true)
@@ -25,18 +27,15 @@ pub fn main(args: &Args) -> crate::Result<()> {
         .unwrap();
 
     // Create a new game.
-    let game = if args.cmd_rle {
-        Game::rle(&args.arg_file)?
-    } else if args.cmd_random {
-        Game::random(args.arg_width, args.arg_height)
-    } else {
-        unreachable!("Unexpected arguments: {:#?}", args);
+    let game = match opt.cmd {
+        Command::Rle { ref file } => Game::rle(file)?,
+        Command::Random { width, height } => Game::random(width, height),
     };
 
     // Create and run the App
     let mut app = App::new(GlGraphics::new(OpenGL::V3_2), game, 8.1);
 
-    let mut ups = args.flag_speed;
+    let mut ups = opt.speed;
     let mut events = Events::new(EventSettings::new().ups(ups));
 
     let mut drag = DragController::new();

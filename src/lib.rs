@@ -15,12 +15,12 @@
 )]
 #![forbid(unsafe_code)]
 
-mod args;
 mod game;
+mod opt;
 mod point;
 
-pub use args::Args;
 pub use game::Game;
+pub use opt::Opt;
 pub use point::Point;
 
 pub mod gui;

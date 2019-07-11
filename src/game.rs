@@ -1,5 +1,6 @@
 use std::collections::{HashMap, HashSet};
 use std::fs;
+use std::path::Path;
 
 use scan_rules::{scan, scan_rules_impl, scanner::Line};
 
@@ -75,7 +76,7 @@ impl Game {
 
     #[allow(clippy::cognitive_complexity)]
     /// Creates a game by parsing an rle file at the given path.
-    pub fn rle(path: &str) -> crate::Result<Self> {
+    pub fn rle(path: &Path) -> crate::Result<Self> {
         let contents = fs::read_to_string(path)?;
         let mut board = Board::new();
         scan!(&contents; (
