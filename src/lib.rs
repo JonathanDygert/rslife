@@ -1,19 +1,19 @@
 //! A library for simulating [Conway's Game of Life](https://en.wikipedia.org/wiki/Conway%27s_Game_of_Life).
 
+#![warn(clippy::all, clippy::cargo_common_metadata)]
 #![deny(
-    rust_2018_idioms,
+    future_incompatible,
     missing_docs,
     missing_debug_implementations,
     missing_copy_implementations,
+    rust_2018_idioms,
     trivial_casts,
     trivial_numeric_casts,
-    unsafe_code,
-    unstable_features,
     unused_import_braces,
-    unused_qualifications
+    unused_qualifications,
+    clippy::wildcard_dependencies
 )]
-#![warn(clippy::all, clippy::cargo_common_metadata)]
-#![deny(clippy::wildcard_dependencies)]
+#![forbid(unsafe_code)]
 
 mod args;
 mod game;
